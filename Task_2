@@ -1,0 +1,62 @@
+namespace ConsoleApp62
+{
+    public class Score
+    { 
+        // поле-словарь (хранятся: предмет-оценка)       
+        private Dictionary<string, int> scores;
+
+        // конструктор
+        public Score()
+        {
+            scores = new Dictionary<string, int>
+        {
+            { "Математика", 0 },
+            { "Русский", 0 },
+            { "Физика", 0 }
+        };
+        }
+
+        // индексатор для доступа к оценкам по предметам
+        public int this[string subject]
+        {
+            get
+            {
+                if (scores.ContainsKey(subject))
+                {
+                    return scores[subject];
+                }
+                Console.WriteLine("Предмет не найден.");
+            }
+            set
+            {
+                if (scores.ContainsKey(subject))
+                {
+                    scores[subject] = value;
+                }
+                else
+                {
+                    Console.WriteLine("Предмет не найден.");
+                }
+            }
+        }
+
+        public override string ToString()
+        {
+            return string.Join(", ", scores.Select(s => $"{s.Key}: {s.Value}"));
+        }
+    }
+
+    class Program
+    {
+        static void Main()
+        {
+            var s = new Score();
+            s["Математика"] = 5;
+            s["Русский"] = 4;
+
+            Console.WriteLine(s["Математика"]); // Вывод: 5
+            Console.WriteLine(s); // Вывод: Математика: 5, Русский: 4, Физика: 0
+        }
+    }
+
+}
